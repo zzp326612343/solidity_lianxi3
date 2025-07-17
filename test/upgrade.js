@@ -54,16 +54,16 @@ describe("Test upgrade", async function () {
     const implAddress2 = await upgrades.erc1967.getImplementationAddress(
       nftAuctionProxy.address
     );
-    // 4. 读取合约的 auction[0]
-    const auction2 = await nftAuction.auctions(0);
-    console.log("升级后读取拍卖成功：：", auction2);
 
     console.log("implAddress1::", implAddress1, "\nimplAddress2::", implAddress2);
-    
     const nftAuctionV2 = await ethers.getContractAt(
         "NftAuctionV2",
         nftAuctionProxy.address
       );
+    console.log("nftAuction::",await nftAuction.getAddress(), "\nnftAuctionV2::",await nftAuctionV2.getAddress());
+    // 4. 读取合约的 auction[0]
+    const auction2 = await nftAuctionV2.auctions(0);
+    console.log("升级后读取拍卖成功：：", auction2);
     const hello = await nftAuctionV2.testHello()
     console.log("hello::", hello);
     
